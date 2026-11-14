@@ -794,10 +794,15 @@ async function selectStation(index) {
 
   destroyStream();
   updateInfo();
+  updateMediaMetadata();
 
   localStorage.setItem("radioLastStation",stations[current].id);
 
   setPlayState(false);
+  if ("mediaSession" in navigator) {
+  navigator.mediaSession.playbackState =
+    playing ? "playing" : "paused";
+}
   setStatus("READY");
 
   await startPlayback();
