@@ -608,6 +608,91 @@ const stations = [
 const $ = id => document.getElementById(id);
 const audio = $("audio");
 
+  
+// 시스템 미디어 플레이어 연동
+function createStationArtwork(station) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 512;
+  canvas.height = 512;
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "#242522";
+  ctx.fillRect(0, 0, 512, 512);
+
+  ctx.strokeStyle = "#D6B18C";
+  ctx.lineWidth = 5;
+  ctx.beginPath();
+  ctx.roundRect(35, 35, 442, 442, 70);
+  ctx.stroke();
+
+  ctx.fillStyle = "#D6B18C";
+  ctx.font = "bold 105px Arial";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(station.short, 256, 220);
+
+  ctx.fillStyle = "#F2F0E9";
+  ctx.font = "bold 35px Arial";
+  ctx.fillText("RADIO", 256, 325);
+
+  ctx.fillStyle = "#99988F";
+  ctx.font = "23px Arial";
+  ctx.fillText(station.freq + " MHz", 256, 385);
+
+  return canvas.toDataURL("image/png");
+}
+
+function updateMediaMetadata() {
+  if (!("mediaSession" in navigator)) return;
+
+  const station = stations[current];
+
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: station.name,
+    artist: station.short,
+    album: "RADIO · LIVE BROADCAST",
+    artwork: [
+      {
+        src: createStationArtwork(station),
+        sizes: "512x512",
+        type: "image/png"
+      }
+    ]
+  });
+}
+
+// 잠금 화면 재생 버튼 연동
+if ("mediaSession" in navigator) {
+  navigator.mediaSession.setActionHandler("play", async () => {
+    try {
+      if (!audio.src && !hls) {
+        await startPlayback();
+      } else {
+        await audio.play();
+      }
+      setPlayState(true);
+      setStatus("ON AIR", true);
+    } catch (e) {
+      setStatus("ERROR");
+    }
+  });
+
+  navigator.mediaSession.setActionHandler("pause", () => {
+    audio.pause();
+    setPlayState(false);
+    setStatus("PAUSED");
+  });
+
+  navigator.mediaSession.setActionHandler("stop", () => {
+    requestId++;
+    destroyStream();
+    setPlayState(false);
+    setStatus("STOPPED");
+  });
+}
+
+  
 let current = 0;
 let hls = null;
 let HlsClass = null;
