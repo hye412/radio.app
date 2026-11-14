@@ -1,328 +1,449 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="theme-color" content="#f4f2ed">
-<title>Radio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#242522">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Radio">
+<title>Radio.</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23242522'/%3E%3Ctext x='50' y='65' font-size='53' text-anchor='middle' fill='%23d6b18c' font-family='Arial' font-weight='bold'%3ER%3C/text%3E%3C/svg%3E">
 
 <style>
 :root {
-  color-scheme: light dark;
-  --bg: #f4f2ed;
-  --fg: #252522;
-  --sub: #89877f;
-  --line: #dedbd3;
-  --panel: #eae7df;
-  --accent: #b36b42;
+  color-scheme: light;
+  --bg:#f2f0e9;
+  --panel:#e7e4db;
+  --fg:#292923;
+  --sub:#85837a;
+  --line:#d9d6cc;
+  --accent:#a66c43;
+  --active:#e3d3c0;
+  --button:#292923;
+  --button-text:#f2f0e9;
 }
 
-@media (prefers-color-scheme: dark) {
+@media(prefers-color-scheme:dark) {
   :root {
-    --bg: #191918;
-    --fg: #eeece6;
-    --sub: #92918a;
-    --line: #353530;
-    --panel: #242421;
-    --accent: #d69a70;
+    color-scheme:dark;
+    --bg:#242522;
+    --panel:#30312d;
+    --fg:#eeece4;
+    --sub:#99988f;
+    --line:#41413b;
+    --accent:#d6b18c;
+    --active:#554638;
+    --button:#d6b18c;
+    --button-text:#292923;
   }
 }
 
-* { box-sizing: border-box; }
+* {box-sizing:border-box}
+
+html,body {
+  margin:0;
+  width:100%;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:-apple-system,BlinkMacSystemFont,
+    "Apple SD Gothic Neo",sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
 
 body {
-  margin: 0;
-  min-height: 100dvh;
-  background: var(--bg);
-  color: var(--fg);
-  font-family: -apple-system, BlinkMacSystemFont,
-    "Apple SD Gothic Neo", sans-serif;
-  display: flex;
-  justify-content: center;
-  -webkit-tap-highlight-color: transparent;
+  min-height:100svh;
+  display:flex;
+  justify-content:center;
+  overflow-x:hidden;
 }
 
-button, input { font: inherit; }
+button,input {font:inherit}
+
+button {cursor:pointer}
 
 .app {
-  width: 100%;
-  max-width: 440px;
-  min-height: 100dvh;
-  padding: 28px 25px 35px;
-  display: flex;
-  flex-direction: column;
+  width:100%;
+  max-width:430px;
+  min-height:100svh;
+  height:100svh;
+  height:100dvh;
+  padding: max(15px,env(safe-area-inset-top)) 23px
+    max(12px,env(safe-area-inset-bottom));
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  overflow:hidden;
 }
 
+/* Header */
+
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 22px;
-  border-bottom: 1px solid var(--line);
+  height:38px;
+  flex-shrink:0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+  padding-bottom:10px;
 }
 
 .brand {
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 4px;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:4px;
 }
 
 .status {
-  font-size: 11px;
-  color: var(--sub);
+  font-size:10px;
+  letter-spacing:1.5px;
+  color:var(--sub);
+  display:flex;
+  align-items:center;
+  gap:7px;
 }
 
+.dot {
+  width:7px;
+  height:7px;
+  background:var(--sub);
+  border-radius:50%;
+}
+
+.dot.live {background:#55a77a}
+
+/* Main radio */
+
 .main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 35px 0;
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:clamp(8px,2.2dvh,17px);
 }
 
 .logo {
-  width: 88px;
-  height: 88px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  margin: 0 auto 28px;
-  background: var(--panel);
-  font-size: 25px;
-  font-weight: 900;
-  letter-spacing: -2px;
+  width:clamp(58px,10dvh,82px);
+  height:clamp(58px,10dvh,82px);
+  flex-shrink:0;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:22px;
+  display:grid;
+  place-items:center;
+  color:var(--accent);
 }
 
-.station-info {
-  text-align: center;
+.logo svg {
+  width:52%;
+  height:52%;
 }
+
+.station-info {text-align:center}
 
 .station-name {
-  font-size: 23px;
-  font-weight: 750;
-  letter-spacing: -1px;
+  font-size:clamp(20px,5vw,25px);
+  font-weight:800;
+  letter-spacing:-1px;
 }
 
 .frequency {
-  margin-top: 8px;
-  font-size: 13px;
-  color: var(--sub);
-  letter-spacing: 3px;
+  color:var(--accent);
+  font-size:clamp(23px,6vw,30px);
+  font-weight:800;
+  letter-spacing:2px;
+  margin-top:5px;
+}
+
+.frequency small {
+  font-size:11px;
+  color:var(--sub);
+  letter-spacing:1px;
 }
 
 .dial {
-  margin: 35px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 17px 0;
+  width:100%;
+  padding:11px 0 8px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
 }
 
 .dial-label {
-  font-size: 10px;
-  color: var(--sub);
-  letter-spacing: 3px;
-  text-align: center;
-  margin-bottom: 13px;
+  font-size:9px;
+  color:var(--sub);
+  text-align:center;
+  letter-spacing:3px;
+  margin-bottom:12px;
 }
 
-.dial-line {
-  height: 22px;
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  background: repeating-linear-gradient(
+.dial-scale {
+  position:relative;
+  height:17px;
+  background:repeating-linear-gradient(
     90deg,
     var(--sub) 0px,
     var(--sub) 1px,
     transparent 1px,
-    transparent 12px
+    transparent 10%
   );
-  background-size: 100% 8px;
-  background-repeat: no-repeat;
-  position: relative;
+  background-size:100% 9px;
+  background-repeat:no-repeat;
 }
 
-.dial-line::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 15px;
-  background: var(--accent);
-  left: 50%;
-  top: 0;
+.dial-scale:after {
+  content:"";
+  position:absolute;
+  width:2px;
+  height:16px;
+  background:var(--accent);
+  left:50%;
+  top:0;
 }
+
+/* Playback */
 
 .controls {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 35px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:clamp(28px,10vw,45px);
 }
 
-.play {
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  border: none;
-  background: var(--fg);
-  color: var(--bg);
-  font-size: 25px;
-  cursor: pointer;
+.icon-button {
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  background:none;
+  border:0;
+  color:var(--sub);
+  padding:0;
 }
 
-.small-btn {
-  border: 0;
-  background: none;
-  color: var(--sub);
-  font-size: 19px;
-  cursor: pointer;
-  padding: 12px;
+.icon-button svg {width:21px;height:21px}
+
+.play-button {
+  width:62px;
+  height:62px;
+  border:0;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--button);
+  color:var(--button-text);
 }
+
+.play-button svg {width:25px;height:25px}
+
+/* Sections */
 
 .section {
-  border-top: 1px solid var(--line);
-  padding: 22px 0;
+  flex-shrink:0;
+  border-top:1px solid var(--line);
+  padding:clamp(9px,1.8dvh,14px) 0;
 }
 
-.section-title {
-  font-size: 11px;
-  color: var(--sub);
-  letter-spacing: 2px;
-  margin-bottom: 15px;
+.section-heading {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:10px;
+  letter-spacing:2px;
+  color:var(--sub);
+  margin-bottom:10px;
 }
 
 .stations {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
 }
 
 .station {
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--fg);
-  border-radius: 7px;
-  padding: 13px 12px;
-  text-align: left;
-  cursor: pointer;
-  min-height: 67px;
+  min-width:0;
+  height:58px;
+  background:transparent;
+  border:1px solid var(--line);
+  border-radius:7px;
+  color:var(--fg);
+  padding:5px 2px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
 }
 
 .station.active {
-  border-color: var(--accent);
-  background: var(--panel);
+  background:var(--active);
+  border-color:var(--accent);
 }
 
 .station strong {
-  display: block;
-  font-size: 13px;
+  font-size:11px;
+  font-weight:800;
 }
 
 .station span {
-  display: block;
-  color: var(--sub);
-  font-size: 11px;
-  margin-top: 6px;
+  font-size:9px;
+  color:var(--sub);
 }
+
+/* Volume */
 
 .volume-row {
-  display: flex;
-  align-items: center;
-  gap: 13px;
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
-input[type="range"] {
-  flex: 1;
-  accent-color: var(--accent);
-  min-width: 0;
+.volume-row svg {
+  width:17px;
+  height:17px;
+  color:var(--sub);
+  flex-shrink:0;
+}
+
+input[type=range] {
+  flex:1;
+  width:0;
+  accent-color:var(--accent);
+  height:5px;
 }
 
 .volume-value {
-  font-size: 12px;
-  color: var(--sub);
-  width: 37px;
-  text-align: right;
+  width:35px;
+  text-align:right;
+  font-size:11px;
+  color:var(--sub);
+  font-variant-numeric:tabular-nums;
 }
 
+/* Timer */
+
 .timer-presets {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 7px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:6px;
 }
 
 .timer-btn {
-  background: transparent;
-  color: var(--fg);
-  border: 1px solid var(--line);
-  padding: 11px 0;
-  border-radius: 5px;
-  font-size: 12px;
-  cursor: pointer;
+  height:35px;
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--fg);
+  border-radius:5px;
+  font-size:11px;
 }
 
 .timer-btn.active {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color:var(--accent);
+  background:var(--active);
+  color:var(--accent);
 }
 
 .custom-row {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
+  display:flex;
+  gap:6px;
+  margin-top:8px;
 }
 
 .custom-row input {
-  width: 0;
-  flex: 1;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  color: var(--fg);
-  padding: 10px;
+  flex:1;
+  width:0;
+  min-width:0;
+  height:33px;
+  padding:0 9px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--fg);
+  border-radius:5px;
+  font-size:11px;
 }
 
 .custom-row button {
-  background: var(--fg);
-  color: var(--bg);
-  border: 0;
-  border-radius: 5px;
-  padding: 0 16px;
+  border:0;
+  border-radius:5px;
+  padding:0 14px;
+  background:var(--button);
+  color:var(--button-text);
+  font-size:11px;
 }
 
 .timer-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-  font-size: 12px;
-  color: var(--sub);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:9px;
+  min-height:22px;
+  color:var(--sub);
+  font-size:10px;
 }
 
 .timer-time {
-  font-size: 19px;
-  color: var(--fg);
-  font-variant-numeric: tabular-nums;
+  font-size:17px;
+  font-weight:700;
+  color:var(--fg);
+  font-variant-numeric:tabular-nums;
 }
 
-.cancel {
-  color: var(--accent);
-  border: 0;
-  background: none;
-  padding: 5px;
+.timer-actions {
+  display:flex;
+  gap:8px;
 }
+
+.timer-actions button {
+  border:0;
+  background:none;
+  color:var(--accent);
+  font-size:10px;
+  padding:4px;
+}
+
+[hidden] {display:none!important}
 
 footer {
-  text-align: center;
-  color: var(--sub);
-  font-size: 10px;
-  letter-spacing: 2px;
-  padding-top: 15px;
+  flex-shrink:0;
+  text-align:center;
+  font-size:8px;
+  letter-spacing:3px;
+  color:var(--sub);
+  padding-top:5px;
 }
 
-@media (max-width: 360px) {
-  .app { padding: 20px 17px; }
-  .station-name { font-size: 21px; }
+button:focus-visible,input:focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+}
+
+/* Small screens */
+
+@media(max-height:680px) {
+  .app {padding-top:8px;padding-bottom:6px}
+  .main {gap:7px}
+  .logo {width:49px;height:49px;border-radius:15px}
+  .section {padding:7px 0}
+  .station {height:49px}
+  .play-button {width:52px;height:52px}
+  .section-heading {margin-bottom:7px}
+  .timer-btn {height:30px}
+  .custom-row {margin-top:5px}
+  footer {display:none}
+}
+
+@media(max-height:560px) {
+  .main {flex-direction:row;flex-wrap:wrap;gap:8px}
+  .dial {display:none}
+  .logo {width:40px;height:40px}
+  .controls {gap:12px}
+  .play-button {width:44px;height:44px}
+  .section {padding:5px 0}
+  .station {height:42px}
 }
 </style>
 </head>
@@ -332,47 +453,95 @@ footer {
 
 <header>
   <div class="brand">RADIO.</div>
-  <div class="status" id="status">READY</div>
+  <div class="status">
+    <span class="dot" id="statusDot"></span>
+    <span id="status">READY</span>
+  </div>
 </header>
 
 <main class="main">
 
-  <div class="logo" id="logo">CBS</div>
+  <div class="logo" id="logo">
+    <svg viewBox="0 0 48 48" fill="none"
+      stroke="currentColor" stroke-width="2.3"
+      stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 19h32v23H8z"/>
+      <path d="M15 19l18-12"/>
+      <circle cx="24" cy="30" r="6"/>
+      <path d="M24 30l4-3"/>
+      <path d="M15 37h18"/>
+      <path d="M17 13a10 10 0 0 1 14 0"/>
+      <path d="M12 9a17 17 0 0 1 24 0"/>
+    </svg>
+  </div>
 
   <div class="station-info">
     <div class="station-name" id="stationName">CBS 표준FM</div>
-    <div class="frequency" id="frequency">98.1 MHz</div>
+    <div class="frequency">
+      <span id="frequency">98.1</span>
+      <small>MHz</small>
+    </div>
   </div>
 
   <div class="dial">
-    <div class="dial-label">LIVE BROADCAST</div>
-    <div class="dial-line"></div>
+    <div class="dial-label">FM · LIVE BROADCAST</div>
+    <div class="dial-scale"></div>
   </div>
 
   <div class="controls">
-    <button class="small-btn" id="stopBtn" aria-label="정지">■</button>
-    <button class="play" id="playBtn" aria-label="재생">▶</button>
-    <button class="small-btn" id="favoriteBtn" aria-label="즐겨찾기">♡</button>
+    <button class="icon-button" id="stopBtn" aria-label="정지">
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <rect x="6" y="6" width="12" height="12" rx="1"/>
+      </svg>
+    </button>
+
+    <button class="play-button" id="playBtn" aria-label="재생">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+
+    <button class="icon-button" id="favoriteBtn"
+      aria-label="즐겨찾기">
+      <svg viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.8">
+        <path d="M20.8 8.7c0 4.1-8.8 10-8.8 10s-8.8-5.9-8.8-10a4.5 4.5 0 0 1 8.8-1.3 4.5 4.5 0 0 1 8.8 1.3z"/>
+      </svg>
+    </button>
   </div>
 
 </main>
 
 <section class="section">
-  <div class="section-title">STATIONS</div>
+  <div class="section-heading">
+    <span>STATIONS</span>
+    <span id="favoriteLabel">ALL CHANNELS</span>
+  </div>
   <div class="stations" id="stations"></div>
 </section>
 
 <section class="section">
-  <div class="section-title">VOLUME</div>
+  <div class="section-heading">
+    <span>VOLUME</span>
+    <span id="volumeValue">100%</span>
+  </div>
   <div class="volume-row">
-    <span>♪</span>
+    <svg viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="1.8">
+      <path d="M11 5L6 9H3v6h3l5 4z"/>
+      <path d="M15 9a5 5 0 0 1 0 6"/>
+      <path d="M18 6a9 9 0 0 1 0 12"/>
+    </svg>
     <input type="range" id="volume" min="0" max="100" value="100">
-    <span class="volume-value" id="volumeValue">100%</span>
   </div>
 </section>
 
 <section class="section">
-  <div class="section-title">SLEEP TIMER</div>
+  <div class="section-heading">
+    <span>SLEEP TIMER</span>
+    <span>FADE OUT · 60 SEC</span>
+  </div>
 
   <div class="timer-presets">
     <button class="timer-btn" data-min="15">15분</button>
@@ -383,15 +552,18 @@ footer {
   </div>
 
   <div class="custom-row">
-    <input type="number" id="customMinutes"
-      placeholder="직접 입력 (분)" min="1" max="720">
+    <input id="customMinutes" type="number"
+      min="1" max="720" placeholder="직접 입력 (분)">
     <button id="customStart">설정</button>
   </div>
 
   <div class="timer-info">
     <span id="timerLabel">타이머 설정 안 됨</span>
     <span class="timer-time" id="timerTime">--:--</span>
-    <button class="cancel" id="cancelTimer" hidden>취소</button>
+    <div class="timer-actions">
+      <button id="extendTimer" hidden>+15분</button>
+      <button id="cancelTimer" hidden>취소</button>
+    </div>
   </div>
 </section>
 
@@ -404,58 +576,73 @@ footer {
 <script>
 const stations = [
   {
-    id: "cbs981",
-    name: "CBS 표준FM",
-    freq: "98.1 MHz",
-    logo: "CBS",
-    url: "https://m-aac.cbs.co.kr/mweb_cbs981/_definst_/cbs981.stream/playlist.m3u8"
+    id:"cbs981",
+    name:"CBS 표준FM",
+    short:"CBS",
+    freq:"98.1",
+    url:"https://m-aac.cbs.co.kr/mweb_cbs981/_definst_/cbs981.stream/playlist.m3u8"
   },
   {
-    id: "cbs939",
-    name: "CBS 음악FM",
-    freq: "93.9 MHz",
-    logo: "CBS",
-    url: "https://m-aac.cbs.co.kr/mweb_cbs939/_definst_/cbs939.stream/playlist.m3u8"
+    id:"cbs939",
+    name:"CBS 음악FM",
+    short:"CBS",
+    freq:"93.9",
+    url:"https://m-aac.cbs.co.kr/mweb_cbs939/_definst_/cbs939.stream/playlist.m3u8"
   },
   {
-    id: "febc",
-    name: "FEBC 극동방송",
-    freq: "서울 FM",
-    logo: "FEBC",
-    url: "http://mlive2.febc.net:1935/live/seoulfm/playlist.m3u8"
+    id:"febc",
+    name:"FEBC 극동방송",
+    short:"FEBC",
+    freq:"서울",
+    url:"http://mlive2.febc.net:1935/live/seoulfm/playlist.m3u8"
   },
   {
-    id: "kbs",
-    name: "KBS 클래식FM",
-    freq: "93.1 MHz",
-    logo: "KBS",
-    url: "https://1fm.gscdn.kbs.co.kr/1fm_192_2.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xZm0uZ3NjZG4ua2JzLmNvLmtyLyoiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTQ3ODY2MzB9fX1dfQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA&Signature=c5KHNhu8OU9pTE0uHirzZiauF~TU9lkJvX290MOJ3uc47bv45QO69~NJSZDoaJdKQ2lUQciGNavKHiA0kBtCvMfqVp3RuQ5948pz2PlW9dxRzWA5-FTyVpdT~odXBJx1io8WbSomGsbm-EIz2ovfyI95V~Pca0bNA11lrYkC9Am9pNHnsrVGHPB2eovZeK~yzIbkV6GJMB7mAQLFVlthrNE3X8eFT2CjT6apxnaMvNHRLnsV2~A8bPtzrDTQZtoMSnhLece8CnTjedciRCUlbydfo9128xW6tOlmM77L3lpKwKR9hgAoX2edy5zQCCOE4u4xRxRjS~i0nRGHocHX6g__"
+    id:"kbs",
+    name:"KBS 클래식FM",
+    short:"KBS",
+    freq:"93.1",
+    url:"https://1fm.gscdn.kbs.co.kr/1fm_192_2.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xZm0uZ3NjZG4ua2JzLmNvLmtyLyoiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTQ3ODY2MzB9fX1dfQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA&Signature=c5KHNhu8OU9pTE0uHirzZiauF~TU9lkJvX290MOJ3uc47bv45QO69~NJSZDoaJdKQ2lUQciGNavKHiA0kBtCvMfqVp3RuQ5948pz2PlW9dxRzWA5-FTyVpdT~odXBJx1io8WbSomGsbm-EIz2ovfyI95V~Pca0bNA11lrYkC9Am9pNHnsrVGHPB2eovZeK~yzIbkV6GJMB7mAQLFVlthrNE3X8eFT2CjT6apxnaMvNHRLnsV2~A8bPtzrDTQZtoMSnhLece8CnTjedciRCUlbydfo9128xW6tOlmM77L3lpKwKR9hgAoX2edy5zQCCOE4u4xRxRjS~i0nRGHocHX6g__"
   }
 ];
 
-const audio = document.getElementById("audio");
-const playBtn = document.getElementById("playBtn");
-const statusEl = document.getElementById("status");
+const $ = id => document.getElementById(id);
+const audio = $("audio");
 
 let current = 0;
 let hls = null;
-let hlsClass = null;
+let HlsClass = null;
+let loadingLibrary = null;
+let requestId = 0;
 let retryCount = 0;
 let retryTimer = null;
-let timerDeadline = null;
 let timerInterval = null;
+let timerDeadline = null;
 let baseVolume = 1;
-let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+let favorites = JSON.parse(localStorage.getItem("radioFavorites") || "[]");
+
+const playIcon = `
+<svg viewBox="0 0 24 24" fill="currentColor">
+<path d="M8 5v14l11-7z"/>
+</svg>`;
+
+const pauseIcon = `
+<svg viewBox="0 0 24 24" fill="currentColor">
+<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
+</svg>`;
+
+function setStatus(text, live=false) {
+  $("status").textContent = text;
+  $("statusDot").classList.toggle("live",live);
+}
 
 function renderStations() {
-  document.getElementById("stations").innerHTML =
-    stations.map((s, i) => `
-      <button class="station ${i === current ? "active" : ""}"
-        data-index="${i}">
-        <strong>${s.name}</strong>
-        <span>${s.freq}</span>
-      </button>
-    `).join("");
+  $("stations").innerHTML = stations.map((s,i) => `
+    <button class="station ${i===current?"active":""}"
+      data-index="${i}">
+      <strong>${s.short}</strong>
+      <span>${s.freq}${s.freq==="서울"?"":" MHz"}</span>
+    </button>
+  `).join("");
 
   document.querySelectorAll(".station").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -466,22 +653,29 @@ function renderStations() {
 
 function updateInfo() {
   const s = stations[current];
-  document.getElementById("logo").textContent = s.logo;
-  document.getElementById("stationName").textContent = s.name;
-  document.getElementById("frequency").textContent = s.freq;
-  document.getElementById("favoriteBtn").textContent =
-    favorites.includes(s.id) ? "♥" : "♡";
+
+  $("stationName").textContent = s.name;
+  $("frequency").textContent = s.freq;
+
+  $("favoriteBtn").style.color =
+    favorites.includes(s.id) ? "var(--accent)" : "var(--sub)";
+
+  $("favoriteLabel").textContent =
+    favorites.includes(s.id) ? "★ FAVORITE" : "ALL CHANNELS";
+
   renderStations();
 }
 
-function setStatus(value) {
-  statusEl.textContent = value;
+function setPlayState(playing) {
+  $("playBtn").innerHTML = playing ? pauseIcon : playIcon;
+  $("playBtn").setAttribute("aria-label",playing?"일시정지":"재생");
 }
 
 function destroyStream() {
   clearTimeout(retryTimer);
+  retryTimer = null;
 
-  if (hls) {
+  if(hls) {
     hls.destroy();
     hls = null;
   }
@@ -491,97 +685,153 @@ function destroyStream() {
   audio.load();
 }
 
+async function loadHls() {
+  if(HlsClass) return HlsClass;
+
+  if(!loadingLibrary) {
+    loadingLibrary = import(
+      "https://cdn.jsdelivr.net/npm/hls.js@1/+esm"
+    ).then(module => {
+      HlsClass = module.default;
+      return HlsClass;
+    }).finally(() => {
+      loadingLibrary = null;
+    });
+  }
+
+  return loadingLibrary;
+}
+
 async function selectStation(index) {
   current = index;
   retryCount = 0;
+  requestId++;
+
   destroyStream();
   updateInfo();
-  localStorage.setItem("lastStation", stations[current].id);
+
+  localStorage.setItem("radioLastStation",stations[current].id);
+
+  setPlayState(false);
   setStatus("READY");
-  playBtn.textContent = "▶";
+
   await startPlayback();
 }
 
 async function startPlayback() {
+  const id = ++requestId;
   const station = stations[current];
 
+  clearTimeout(retryTimer);
+  destroyCurrentHlsOnly();
+
   setStatus("LOADING");
-  playBtn.textContent = "…";
+  setPlayState(false);
 
   try {
-    // Safari 등 네이티브 HLS 지원 브라우저
-    if (audio.canPlayType("application/vnd.apple.mpegurl")) {
+    if(audio.canPlayType("application/vnd.apple.mpegurl")) {
       audio.src = station.url;
+      audio.load();
+
+      if(id !== requestId) return;
+
       await audio.play();
     } else {
-      // 필요한 경우에만 hls.js 로드
-      if (!hlsClass) {
-        setStatus("LOADING");
-        const module = await import(
-          "https://cdn.jsdelivr.net/npm/hls.js@1/+esm"
-        );
-        hlsClass = module.default;
+      const Hls = await loadHls();
+
+      if(id !== requestId) return;
+
+      if(!Hls.isSupported()) {
+        throw new Error("이 브라우저는 HLS를 지원하지 않습니다.");
       }
 
-      if (!hlsClass.isSupported()) {
-        throw new Error("HLS_NOT_SUPPORTED");
-      }
-
-      hls = new hlsClass({
-        enableWorker: true,
-        lowLatencyMode: false,
-        maxBufferLength: 15,
-        maxMaxBufferLength: 30
+      const instance = new Hls({
+        enableWorker:true,
+        lowLatencyMode:false,
+        maxBufferLength:15,
+        maxMaxBufferLength:30
       });
 
-      hls.loadSource(station.url);
-      hls.attachMedia(audio);
+      hls = instance;
 
-      await new Promise((resolve, reject) => {
-        hls.on(hlsClass.Events.MANIFEST_PARSED, async () => {
+      await new Promise((resolve,reject) => {
+        let finished = false;
+
+        const fail = error => {
+          if(finished) return;
+          finished = true;
+          reject(error);
+        };
+
+        instance.on(Hls.Events.ERROR,(_,data) => {
+          if(data.fatal) fail(new Error(data.details));
+        });
+
+        instance.on(Hls.Events.MANIFEST_PARSED,async () => {
+          if(id !== requestId) return fail(new Error("취소됨"));
+
           try {
             await audio.play();
-            resolve();
-          } catch (e) {
-            reject(e);
+            if(!finished) {
+              finished = true;
+              resolve();
+            }
+          } catch(error) {
+            fail(error);
           }
         });
 
-        hls.on(hlsClass.Events.ERROR, (_, data) => {
-          if (data.fatal) reject(new Error(data.type));
-        });
+        instance.loadSource(station.url);
+        instance.attachMedia(audio);
       });
     }
 
+    if(id !== requestId) return;
+
     retryCount = 0;
-    setStatus("ON AIR");
-    playBtn.textContent = "Ⅱ";
+    setPlayState(true);
+    setStatus("ON AIR",true);
 
-  } catch (error) {
-    console.error(error);
+  } catch(error) {
+    if(id !== requestId) return;
+
+    console.error("Stream error:",error);
+
+    setPlayState(false);
     setStatus("ERROR");
-    playBtn.textContent = "▶";
 
-    if (retryCount < 3) {
+    if(retryCount < 3) {
       retryCount++;
-      const delay = retryCount * 3000;
-      setStatus("RECONNECTING");
-      retryTimer = setTimeout(startPlayback, delay);
+      const delay = retryCount * 4000;
+
+      setStatus("RECONNECT");
+      retryTimer = setTimeout(() => {
+        if(id === requestId) startPlayback();
+      },delay);
     }
   }
 }
 
-playBtn.addEventListener("click", async () => {
-  if (!audio.paused) {
+function destroyCurrentHlsOnly() {
+  if(hls) {
+    hls.destroy();
+    hls = null;
+  }
+}
+
+// Playback controls
+
+$("playBtn").addEventListener("click",async () => {
+  if(!audio.paused) {
     audio.pause();
-    playBtn.textContent = "▶";
+    setPlayState(false);
     setStatus("PAUSED");
-  } else if (audio.src || hls) {
+  } else if(audio.src || hls) {
     try {
       await audio.play();
-      playBtn.textContent = "Ⅱ";
-      setStatus("ON AIR");
-    } catch (e) {
+      setPlayState(true);
+      setStatus("ON AIR",true);
+    } catch(error) {
       startPlayback();
     }
   } else {
@@ -589,103 +839,107 @@ playBtn.addEventListener("click", async () => {
   }
 });
 
-document.getElementById("stopBtn").addEventListener("click", () => {
+$("stopBtn").addEventListener("click",() => {
+  requestId++;
   destroyStream();
-  playBtn.textContent = "▶";
+  setPlayState(false);
   setStatus("STOPPED");
 });
 
-audio.addEventListener("playing", () => {
-  setStatus("ON AIR");
-  playBtn.textContent = "Ⅱ";
+audio.addEventListener("playing",() => {
+  setPlayState(true);
+  setStatus("ON AIR",true);
 });
 
-audio.addEventListener("waiting", () => {
-  setStatus("BUFFERING");
+audio.addEventListener("waiting",() => {
+  if(!audio.paused) setStatus("BUFFERING");
 });
 
-audio.addEventListener("error", () => {
-  if (audio.src && !audio.paused) {
+audio.addEventListener("error",() => {
+  if(audio.src && !audio.paused) {
     setStatus("ERROR");
   }
 });
 
-// 음량
-const volumeInput = document.getElementById("volume");
+// Volume and fade out
 
 function applyVolume() {
-  const remaining = timerDeadline
-    ? Math.max(0, (timerDeadline - Date.now()) / 1000)
-    : Infinity;
+  let fade = 1;
 
-  const fade = Math.min(1, remaining / 60);
-  audio.volume = baseVolume * fade;
+  if(timerDeadline !== null) {
+    const remaining = Math.max(0,timerDeadline-Date.now());
+    fade = Math.min(1,remaining/60000);
+  }
+
+  audio.volume = Math.max(0,Math.min(1,baseVolume*fade));
 }
 
-volumeInput.addEventListener("input", () => {
-  baseVolume = Number(volumeInput.value) / 100;
-  document.getElementById("volumeValue").textContent =
-    volumeInput.value + "%";
-  localStorage.setItem("volume", volumeInput.value);
+$("volume").addEventListener("input",() => {
+  baseVolume = Number($("volume").value)/100;
+  $("volumeValue").textContent = $("volume").value+"%";
+
+  localStorage.setItem("radioVolume",$("volume").value);
   applyVolume();
 });
 
-// 타이머
+// Sleep timer
+
 function startTimer(minutes) {
-  if (!Number.isFinite(minutes) || minutes < 1 || minutes > 720) {
+  if(!Number.isFinite(minutes) || minutes < 1 || minutes > 720) {
     alert("1분에서 720분 사이로 설정해 주세요.");
     return;
   }
 
-  timerDeadline = Date.now() + minutes * 60 * 1000;
+  clearInterval(timerInterval);
+
+  timerDeadline = Date.now() + minutes*60000;
 
   document.querySelectorAll(".timer-btn").forEach(btn => {
     btn.classList.toggle(
       "active",
-      Number(btn.dataset.min) === minutes
+      Number(btn.dataset.min)===minutes
     );
   });
 
-  document.getElementById("timerLabel").textContent =
-    "취침 타이머 작동 중";
+  $("timerLabel").textContent = "취침 타이머 작동 중";
+  $("cancelTimer").hidden = false;
+  $("extendTimer").hidden = false;
 
-  document.getElementById("cancelTimer").hidden = false;
   updateTimer();
-  clearInterval(timerInterval);
-
-  timerInterval = setInterval(updateTimer, 250);
+  timerInterval = setInterval(updateTimer,250);
 }
 
 function updateTimer() {
-  if (!timerDeadline) return;
+  if(timerDeadline === null) return;
 
-  const remaining = Math.max(0, timerDeadline - Date.now());
-  const seconds = Math.ceil(remaining / 1000);
+  const remaining = Math.max(0,timerDeadline-Date.now());
+  const seconds = Math.ceil(remaining/1000);
 
-  const min = Math.floor(seconds / 60);
-  const sec = seconds % 60;
+  const min = Math.floor(seconds/60);
+  const sec = seconds%60;
 
-  document.getElementById("timerTime").textContent =
-    String(min).padStart(2, "0") + ":" +
-    String(sec).padStart(2, "0");
+  $("timerTime").textContent =
+    String(min).padStart(2,"0")+":"+
+    String(sec).padStart(2,"0");
 
   applyVolume();
 
-  if (remaining <= 0) {
+  if(remaining <= 0) {
     clearInterval(timerInterval);
+    timerInterval = null;
     timerDeadline = null;
+
+    requestId++;
     destroyStream();
 
-    // 원래 음량 복원
     audio.volume = baseVolume;
-    playBtn.textContent = "▶";
+    setPlayState(false);
     setStatus("TIMER ENDED");
 
-    document.getElementById("timerLabel").textContent =
-      "타이머 종료";
-
-    document.getElementById("timerTime").textContent = "00:00";
-    document.getElementById("cancelTimer").hidden = true;
+    $("timerLabel").textContent = "재생 종료";
+    $("timerTime").textContent = "00:00";
+    $("cancelTimer").hidden = true;
+    $("extendTimer").hidden = true;
 
     document.querySelectorAll(".timer-btn").forEach(btn =>
       btn.classList.remove("active")
@@ -695,14 +949,15 @@ function updateTimer() {
 
 function cancelTimer() {
   clearInterval(timerInterval);
+  timerInterval = null;
   timerDeadline = null;
+
   audio.volume = baseVolume;
 
-  document.getElementById("timerLabel").textContent =
-    "타이머 설정 안 됨";
-
-  document.getElementById("timerTime").textContent = "--:--";
-  document.getElementById("cancelTimer").hidden = true;
+  $("timerLabel").textContent = "타이머 설정 안 됨";
+  $("timerTime").textContent = "--:--";
+  $("cancelTimer").hidden = true;
+  $("extendTimer").hidden = true;
 
   document.querySelectorAll(".timer-btn").forEach(btn =>
     btn.classList.remove("active")
@@ -710,51 +965,72 @@ function cancelTimer() {
 }
 
 document.querySelectorAll(".timer-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
+  btn.addEventListener("click",() => {
     startTimer(Number(btn.dataset.min));
   });
 });
 
-document.getElementById("customStart").addEventListener("click", () => {
-  const value = Number(document.getElementById("customMinutes").value);
+$("customStart").addEventListener("click",() => {
+  const value = Number($("customMinutes").value);
   startTimer(value);
 });
 
-document.getElementById("cancelTimer").addEventListener(
-  "click", cancelTimer
-);
+$("customMinutes").addEventListener("keydown",event => {
+  if(event.key==="Enter") {
+    $("customStart").click();
+  }
+});
 
-// 즐겨찾기
-document.getElementById("favoriteBtn").addEventListener("click", () => {
+$("cancelTimer").addEventListener("click",cancelTimer);
+
+$("extendTimer").addEventListener("click",() => {
+  if(timerDeadline !== null) {
+    const remaining = Math.max(0,timerDeadline-Date.now());
+    startTimer(remaining/60000+15);
+  }
+});
+
+// Favorites
+
+$("favoriteBtn").addEventListener("click",() => {
   const id = stations[current].id;
 
-  if (favorites.includes(id)) {
-    favorites = favorites.filter(x => x !== id);
+  if(favorites.includes(id)) {
+    favorites = favorites.filter(x=>x!==id);
   } else {
     favorites.push(id);
   }
 
-  localStorage.setItem("favorites", JSON.stringify(favorites));
+  localStorage.setItem("radioFavorites",JSON.stringify(favorites));
   updateInfo();
 });
 
-// 초기 설정
-const savedStation = localStorage.getItem("lastStation");
-const savedIndex = stations.findIndex(s => s.id === savedStation);
+// Initial settings
 
-if (savedIndex >= 0) current = savedIndex;
+const savedStation = localStorage.getItem("radioLastStation");
+const savedIndex = stations.findIndex(s=>s.id===savedStation);
 
-const savedVolume = localStorage.getItem("volume");
-if (savedVolume !== null) {
-  volumeInput.value = savedVolume;
-  baseVolume = Number(savedVolume) / 100;
+if(savedIndex>=0) current = savedIndex;
+
+const savedVolume = localStorage.getItem("radioVolume");
+
+if(savedVolume !== null && Number.isFinite(Number(savedVolume))) {
+  $("volume").value = savedVolume;
+  baseVolume = Number(savedVolume)/100;
 }
 
 audio.volume = baseVolume;
-document.getElementById("volumeValue").textContent =
-  volumeInput.value + "%";
+$("volumeValue").textContent = $("volume").value+"%";
 
 updateInfo();
+
+// Keep countdown accurate after returning from background
+document.addEventListener("visibilitychange",() => {
+  if(!document.hidden && timerDeadline !== null) {
+    updateTimer();
+  }
+});
+
 </script>
 </body>
 </html>
