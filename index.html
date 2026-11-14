@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#f4f2ed">
+<title>Radio</title>
+
+<style>
+:root {
+  color-scheme: light dark;
+  --bg: #f4f2ed;
+  --fg: #252522;
+  --sub: #89877f;
+  --line: #dedbd3;
+  --panel: #eae7df;
+  --accent: #b36b42;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #191918;
+    --fg: #eeece6;
+    --sub: #92918a;
+    --line: #353530;
+    --panel: #242421;
+    --accent: #d69a70;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont,
+    "Apple SD Gothic Neo", sans-serif;
+  display: flex;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, input { font: inherit; }
+
+.app {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100dvh;
+  padding: 28px 25px 35px;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 4px;
+}
+
+.status {
+  font-size: 11px;
+  color: var(--sub);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 35px 0;
+}
+
+.logo {
+  width: 88px;
+  height: 88px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 28px;
+  background: var(--panel);
+  font-size: 25px;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.station-info {
+  text-align: center;
+}
+
+.station-name {
+  font-size: 23px;
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+.frequency {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--sub);
+  letter-spacing: 3px;
+}
+
+.dial {
+  margin: 35px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 17px 0;
+}
+
+.dial-label {
+  font-size: 10px;
+  color: var(--sub);
+  letter-spacing: 3px;
+  text-align: center;
+  margin-bottom: 13px;
+}
+
+.dial-line {
+  height: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--sub) 0px,
+    var(--sub) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  background-size: 100% 8px;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.dial-line::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 15px;
+  background: var(--accent);
+  left: 50%;
+  top: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+}
+
+.play {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  border: none;
+  background: var(--fg);
+  color: var(--bg);
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.small-btn {
+  border: 0;
+  background: none;
+  color: var(--sub);
+  font-size: 19px;
+  cursor: pointer;
+  padding: 12px;
+}
+
+.section {
+  border-top: 1px solid var(--line);
+  padding: 22px 0;
+}
+
+.section-title {
+  font-size: 11px;
+  color: var(--sub);
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.stations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.station {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--fg);
+  border-radius: 7px;
+  padding: 13px 12px;
+  text-align: left;
+  cursor: pointer;
+  min-height: 67px;
+}
+
+.station.active {
+  border-color: var(--accent);
+  background: var(--panel);
+}
+
+.station strong {
+  display: block;
+  font-size: 13px;
+}
+
+.station span {
+  display: block;
+  color: var(--sub);
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.volume-row {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+  min-width: 0;
+}
+
+.volume-value {
+  font-size: 12px;
+  color: var(--sub);
+  width: 37px;
+  text-align: right;
+}
+
+.timer-presets {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 7px;
+}
+
+.timer-btn {
+  background: transparent;
+  color: var(--fg);
+  border: 1px solid var(--line);
+  padding: 11px 0;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.timer-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.custom-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.custom-row input {
+  width: 0;
+  flex: 1;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--fg);
+  padding: 10px;
+}
+
+.custom-row button {
+  background: var(--fg);
+  color: var(--bg);
+  border: 0;
+  border-radius: 5px;
+  padding: 0 16px;
+}
+
+.timer-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--sub);
+}
+
+.timer-time {
+  font-size: 19px;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.cancel {
+  color: var(--accent);
+  border: 0;
+  background: none;
+  padding: 5px;
+}
+
+footer {
+  text-align: center;
+  color: var(--sub);
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding-top: 15px;
+}
+
+@media (max-width: 360px) {
+  .app { padding: 20px 17px; }
+  .station-name { font-size: 21px; }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+  <div class="brand">RADIO.</div>
+  <div class="status" id="status">READY</div>
+</header>
+
+<main class="main">
+
+  <div class="logo" id="logo">CBS</div>
+
+  <div class="station-info">
+    <div class="station-name" id="stationName">CBS 표준FM</div>
+    <div class="frequency" id="frequency">98.1 MHz</div>
+  </div>
+
+  <div class="dial">
+    <div class="dial-label">LIVE BROADCAST</div>
+    <div class="dial-line"></div>
+  </div>
+
+  <div class="controls">
+    <button class="small-btn" id="stopBtn" aria-label="정지">■</button>
+    <button class="play" id="playBtn" aria-label="재생">▶</button>
+    <button class="small-btn" id="favoriteBtn" aria-label="즐겨찾기">♡</button>
+  </div>
+
+</main>
+
+<section class="section">
+  <div class="section-title">STATIONS</div>
+  <div class="stations" id="stations"></div>
+</section>
+
+<section class="section">
+  <div class="section-title">VOLUME</div>
+  <div class="volume-row">
+    <span>♪</span>
+    <input type="range" id="volume" min="0" max="100" value="100">
+    <span class="volume-value" id="volumeValue">100%</span>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-title">SLEEP TIMER</div>
+
+  <div class="timer-presets">
+    <button class="timer-btn" data-min="15">15분</button>
+    <button class="timer-btn" data-min="30">30분</button>
+    <button class="timer-btn" data-min="45">45분</button>
+    <button class="timer-btn" data-min="60">60분</button>
+    <button class="timer-btn" data-min="90">90분</button>
+  </div>
+
+  <div class="custom-row">
+    <input type="number" id="customMinutes"
+      placeholder="직접 입력 (분)" min="1" max="720">
+    <button id="customStart">설정</button>
+  </div>
+
+  <div class="timer-info">
+    <span id="timerLabel">타이머 설정 안 됨</span>
+    <span class="timer-time" id="timerTime">--:--</span>
+    <button class="cancel" id="cancelTimer" hidden>취소</button>
+  </div>
+</section>
+
+<footer>YOUR PERSONAL RADIO</footer>
+
+<audio id="audio" preload="none" playsinline></audio>
+
+</div>
+
+<script>
+const stations = [
+  {
+    id: "cbs981",
+    name: "CBS 표준FM",
+    freq: "98.1 MHz",
+    logo: "CBS",
+    url: "https://m-aac.cbs.co.kr/mweb_cbs981/_definst_/cbs981.stream/playlist.m3u8"
+  },
+  {
+    id: "cbs939",
+    name: "CBS 음악FM",
+    freq: "93.9 MHz",
+    logo: "CBS",
+    url: "https://m-aac.cbs.co.kr/mweb_cbs939/_definst_/cbs939.stream/playlist.m3u8"
+  },
+  {
+    id: "febc",
+    name: "FEBC 극동방송",
+    freq: "서울 FM",
+    logo: "FEBC",
+    url: "http://mlive2.febc.net:1935/live/seoulfm/playlist.m3u8"
+  },
+  {
+    id: "kbs",
+    name: "KBS 클래식FM",
+    freq: "93.1 MHz",
+    logo: "KBS",
+    url: "https://1fm.gscdn.kbs.co.kr/1fm_192_2.m3u8?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly8xZm0uZ3NjZG4ua2JzLmNvLmtyLyoiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTQ3ODY2MzB9fX1dfQ__&Key-Pair-Id=APKAICDSGT3Y7IXGJ3TA&Signature=c5KHNhu8OU9pTE0uHirzZiauF~TU9lkJvX290MOJ3uc47bv45QO69~NJSZDoaJdKQ2lUQciGNavKHiA0kBtCvMfqVp3RuQ5948pz2PlW9dxRzWA5-FTyVpdT~odXBJx1io8WbSomGsbm-EIz2ovfyI95V~Pca0bNA11lrYkC9Am9pNHnsrVGHPB2eovZeK~yzIbkV6GJMB7mAQLFVlthrNE3X8eFT2CjT6apxnaMvNHRLnsV2~A8bPtzrDTQZtoMSnhLece8CnTjedciRCUlbydfo9128xW6tOlmM77L3lpKwKR9hgAoX2edy5zQCCOE4u4xRxRjS~i0nRGHocHX6g__"
+  }
+];
+
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const statusEl = document.getElementById("status");
+
+let current = 0;
+let hls = null;
+let hlsClass = null;
+let retryCount = 0;
+let retryTimer = null;
+let timerDeadline = null;
+let timerInterval = null;
+let baseVolume = 1;
+let favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+function renderStations() {
+  document.getElementById("stations").innerHTML =
+    stations.map((s, i) => `
+      <button class="station ${i === current ? "active" : ""}"
+        data-index="${i}">
+        <strong>${s.name}</strong>
+        <span>${s.freq}</span>
+      </button>
+    `).join("");
+
+  document.querySelectorAll(".station").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectStation(Number(btn.dataset.index));
+    });
+  });
+}
+
+function updateInfo() {
+  const s = stations[current];
+  document.getElementById("logo").textContent = s.logo;
+  document.getElementById("stationName").textContent = s.name;
+  document.getElementById("frequency").textContent = s.freq;
+  document.getElementById("favoriteBtn").textContent =
+    favorites.includes(s.id) ? "♥" : "♡";
+  renderStations();
+}
+
+function setStatus(value) {
+  statusEl.textContent = value;
+}
+
+function destroyStream() {
+  clearTimeout(retryTimer);
+
+  if (hls) {
+    hls.destroy();
+    hls = null;
+  }
+
+  audio.pause();
+  audio.removeAttribute("src");
+  audio.load();
+}
+
+async function selectStation(index) {
+  current = index;
+  retryCount = 0;
+  destroyStream();
+  updateInfo();
+  localStorage.setItem("lastStation", stations[current].id);
+  setStatus("READY");
+  playBtn.textContent = "▶";
+  await startPlayback();
+}
+
+async function startPlayback() {
+  const station = stations[current];
+
+  setStatus("LOADING");
+  playBtn.textContent = "…";
+
+  try {
+    // Safari 등 네이티브 HLS 지원 브라우저
+    if (audio.canPlayType("application/vnd.apple.mpegurl")) {
+      audio.src = station.url;
+      await audio.play();
+    } else {
+      // 필요한 경우에만 hls.js 로드
+      if (!hlsClass) {
+        setStatus("LOADING");
+        const module = await import(
+          "https://cdn.jsdelivr.net/npm/hls.js@1/+esm"
+        );
+        hlsClass = module.default;
+      }
+
+      if (!hlsClass.isSupported()) {
+        throw new Error("HLS_NOT_SUPPORTED");
+      }
+
+      hls = new hlsClass({
+        enableWorker: true,
+        lowLatencyMode: false,
+        maxBufferLength: 15,
+        maxMaxBufferLength: 30
+      });
+
+      hls.loadSource(station.url);
+      hls.attachMedia(audio);
+
+      await new Promise((resolve, reject) => {
+        hls.on(hlsClass.Events.MANIFEST_PARSED, async () => {
+          try {
+            await audio.play();
+            resolve();
+          } catch (e) {
+            reject(e);
+          }
+        });
+
+        hls.on(hlsClass.Events.ERROR, (_, data) => {
+          if (data.fatal) reject(new Error(data.type));
+        });
+      });
+    }
+
+    retryCount = 0;
+    setStatus("ON AIR");
+    playBtn.textContent = "Ⅱ";
+
+  } catch (error) {
+    console.error(error);
+    setStatus("ERROR");
+    playBtn.textContent = "▶";
+
+    if (retryCount < 3) {
+      retryCount++;
+      const delay = retryCount * 3000;
+      setStatus("RECONNECTING");
+      retryTimer = setTimeout(startPlayback, delay);
+    }
+  }
+}
+
+playBtn.addEventListener("click", async () => {
+  if (!audio.paused) {
+    audio.pause();
+    playBtn.textContent = "▶";
+    setStatus("PAUSED");
+  } else if (audio.src || hls) {
+    try {
+      await audio.play();
+      playBtn.textContent = "Ⅱ";
+      setStatus("ON AIR");
+    } catch (e) {
+      startPlayback();
+    }
+  } else {
+    startPlayback();
+  }
+});
+
+document.getElementById("stopBtn").addEventListener("click", () => {
+  destroyStream();
+  playBtn.textContent = "▶";
+  setStatus("STOPPED");
+});
+
+audio.addEventListener("playing", () => {
+  setStatus("ON AIR");
+  playBtn.textContent = "Ⅱ";
+});
+
+audio.addEventListener("waiting", () => {
+  setStatus("BUFFERING");
+});
+
+audio.addEventListener("error", () => {
+  if (audio.src && !audio.paused) {
+    setStatus("ERROR");
+  }
+});
+
+// 음량
+const volumeInput = document.getElementById("volume");
+
+function applyVolume() {
+  const remaining = timerDeadline
+    ? Math.max(0, (timerDeadline - Date.now()) / 1000)
+    : Infinity;
+
+  const fade = Math.min(1, remaining / 60);
+  audio.volume = baseVolume * fade;
+}
+
+volumeInput.addEventListener("input", () => {
+  baseVolume = Number(volumeInput.value) / 100;
+  document.getElementById("volumeValue").textContent =
+    volumeInput.value + "%";
+  localStorage.setItem("volume", volumeInput.value);
+  applyVolume();
+});
+
+// 타이머
+function startTimer(minutes) {
+  if (!Number.isFinite(minutes) || minutes < 1 || minutes > 720) {
+    alert("1분에서 720분 사이로 설정해 주세요.");
+    return;
+  }
+
+  timerDeadline = Date.now() + minutes * 60 * 1000;
+
+  document.querySelectorAll(".timer-btn").forEach(btn => {
+    btn.classList.toggle(
+      "active",
+      Number(btn.dataset.min) === minutes
+    );
+  });
+
+  document.getElementById("timerLabel").textContent =
+    "취침 타이머 작동 중";
+
+  document.getElementById("cancelTimer").hidden = false;
+  updateTimer();
+  clearInterval(timerInterval);
+
+  timerInterval = setInterval(updateTimer, 250);
+}
+
+function updateTimer() {
+  if (!timerDeadline) return;
+
+  const remaining = Math.max(0, timerDeadline - Date.now());
+  const seconds = Math.ceil(remaining / 1000);
+
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+
+  document.getElementById("timerTime").textContent =
+    String(min).padStart(2, "0") + ":" +
+    String(sec).padStart(2, "0");
+
+  applyVolume();
+
+  if (remaining <= 0) {
+    clearInterval(timerInterval);
+    timerDeadline = null;
+    destroyStream();
+
+    // 원래 음량 복원
+    audio.volume = baseVolume;
+    playBtn.textContent = "▶";
+    setStatus("TIMER ENDED");
+
+    document.getElementById("timerLabel").textContent =
+      "타이머 종료";
+
+    document.getElementById("timerTime").textContent = "00:00";
+    document.getElementById("cancelTimer").hidden = true;
+
+    document.querySelectorAll(".timer-btn").forEach(btn =>
+      btn.classList.remove("active")
+    );
+  }
+}
+
+function cancelTimer() {
+  clearInterval(timerInterval);
+  timerDeadline = null;
+  audio.volume = baseVolume;
+
+  document.getElementById("timerLabel").textContent =
+    "타이머 설정 안 됨";
+
+  document.getElementById("timerTime").textContent = "--:--";
+  document.getElementById("cancelTimer").hidden = true;
+
+  document.querySelectorAll(".timer-btn").forEach(btn =>
+    btn.classList.remove("active")
+  );
+}
+
+document.querySelectorAll(".timer-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    startTimer(Number(btn.dataset.min));
+  });
+});
+
+document.getElementById("customStart").addEventListener("click", () => {
+  const value = Number(document.getElementById("customMinutes").value);
+  startTimer(value);
+});
+
+document.getElementById("cancelTimer").addEventListener(
+  "click", cancelTimer
+);
+
+// 즐겨찾기
+document.getElementById("favoriteBtn").addEventListener("click", () => {
+  const id = stations[current].id;
+
+  if (favorites.includes(id)) {
+    favorites = favorites.filter(x => x !== id);
+  } else {
+    favorites.push(id);
+  }
+
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+  updateInfo();
+});
+
+// 초기 설정
+const savedStation = localStorage.getItem("lastStation");
+const savedIndex = stations.findIndex(s => s.id === savedStation);
+
+if (savedIndex >= 0) current = savedIndex;
+
+const savedVolume = localStorage.getItem("volume");
+if (savedVolume !== null) {
+  volumeInput.value = savedVolume;
+  baseVolume = Number(savedVolume) / 100;
+}
+
+audio.volume = baseVolume;
+document.getElementById("volumeValue").textContent =
+  volumeInput.value + "%";
+
+updateInfo();
+</script>
+</body>
+</html>
