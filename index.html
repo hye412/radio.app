@@ -598,7 +598,8 @@ const stations = [
     id:"febc",
     name:"FEBC 극동방송",
     short:"FEBC",
-    freq:"서울",
+    freq:"106.9",
+    location:"서울",
     url:"http://mlive2.febc.net:1935/live/seoulfm/playlist.m3u8"
   },
   {
@@ -741,7 +742,7 @@ function renderStations() {
     <button class="station ${i===current?"active":""}"
       data-index="${i}">
       <strong>${s.short}</strong>
-      <span>${s.freq}${s.freq==="서울"?"":" MHz"}</span>
+      <span>${s.freq} MHz</span>
     </button>
   `).join("");
 
@@ -908,7 +909,7 @@ async function startPlayback() {
     console.error("Stream error:",error);
 
     setPlayState(false);
-    setStatus("ERROR");
+    setStatus(station.id === "febc" ? "HTTPS REQUIRED" : "ERROR");
 
     if(retryCount < 3) {
       retryCount++;
@@ -968,7 +969,7 @@ audio.addEventListener("waiting",() => {
 
 audio.addEventListener("error",() => {
   if(audio.src && !audio.paused) {
-    setStatus("ERROR");
+    setStatus(stations[current].id === "febc" ? "HTTPS REQUIRED" : "ERROR");
   }
 });
 
