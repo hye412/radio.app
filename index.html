@@ -7,8 +7,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Radio">
 <title>Radio.</title>
-<link rel="icon" href="./favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="manifest" href="./manifest.webmanifest">
 <style>
 :root{color-scheme:light;--bg:#f2f0e9;--panel:#e7e4db;--fg:#292923;--sub:#85837a;--line:#d9d6cc;--accent:#a66c43;--active:#e3d3c0;--button:#292923;--buttonText:#f2f0e9}
@@ -16,26 +14,25 @@
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo",sans-serif}
 body{min-height:100svh}.app{max-width:520px;margin:auto;min-height:100svh;padding:max(16px,env(safe-area-inset-top)) 20px max(18px,env(safe-area-inset-bottom))}
 header{height:40px;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;justify-content:space-between}.brand{font-weight:900;letter-spacing:4px;font-size:14px}.status{font-size:10px;letter-spacing:1px;color:var(--sub)}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--sub);margin-right:6px}.dot.live{background:#55a77a}
-.player{padding:22px 0 18px;text-align:center}.logo{width:58px;height:58px;border:1px solid var(--line);background:var(--panel);border-radius:18px;margin:0 auto 13px;display:grid;place-items:center;color:var(--accent);font-size:24px}.station-name{font-weight:800;font-size:22px;letter-spacing:-.7px}.station-meta{color:var(--accent);font-size:12px;margin-top:5px}.controls{display:flex;justify-content:center;align-items:center;gap:32px;margin-top:16px}.icon-btn{border:0;background:none;color:var(--sub);font-size:23px;width:42px;height:42px}.play-btn{width:56px;height:56px;border:0;border-radius:50%;background:var(--button);color:var(--buttonText);font-size:22px}
-.volume{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 0;margin-bottom:16px}.section-head{display:flex;justify-content:space-between;align-items:center;color:var(--sub);font-size:10px;letter-spacing:1.5px;margin-bottom:9px}.volume-row{display:flex;align-items:center;gap:10px}.volume-row input{flex:1;min-width:0;accent-color:var(--accent)}.volume-value{font-size:11px;color:var(--sub);width:34px;text-align:right}.volume-note{font-size:11px;color:var(--sub);line-height:1.5;margin-top:8px}.volume-note.warn{color:var(--accent)}
-.timer{border-bottom:1px solid var(--line);padding:0 0 14px;margin-bottom:16px}.presets{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.timer-btn{border:1px solid var(--line);background:none;color:var(--fg);border-radius:6px;height:34px;font-size:11px}.timer-btn.active{background:var(--active);border-color:var(--accent);color:var(--accent)}.timer-status{display:flex;justify-content:space-between;align-items:center;color:var(--sub);font-size:11px;margin-top:9px}.timer-time{font-size:16px;font-weight:700;color:var(--fg);font-variant-numeric:tabular-nums}.timer-actions button{background:none;border:0;color:var(--accent);font-size:11px}
-.channels{padding-bottom:25px}.section-title{font-size:10px;letter-spacing:2px;color:var(--sub);margin:0 0 10px;display:flex;justify-content:space-between}.search{width:100%;height:40px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--fg);padding:0 12px;font-size:13px;margin-bottom:12px}.region-tabs{display:flex;gap:7px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}.region-tabs button{white-space:nowrap;border:1px solid var(--line);border-radius:20px;background:none;color:var(--sub);padding:7px 12px;font-size:11px}.region-tabs button.active{background:var(--active);border-color:var(--accent);color:var(--fg)}
-.group-title{font-size:11px;color:var(--sub);margin:13px 0 7px}.station-list{display:grid;gap:6px}.station-row{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:10px 9px;min-height:48px}.station-row.selected{background:var(--active);border-color:var(--accent)}.station-pick{flex:1;min-width:0;border:0;background:none;color:var(--fg);text-align:left;padding:0;font-size:13px}.station-sub{display:block;font-size:10px;color:var(--sub);margin-top:3px}.star{width:32px;height:32px;border:0;background:none;color:var(--sub);font-size:19px}.star.on{color:var(--accent)}.empty{font-size:12px;color:var(--sub);padding:15px 4px}
-.custom-row{display:flex;gap:7px;margin-top:8px}.custom-row input{min-width:0;flex:1;background:var(--panel);border:1px solid var(--line);border-radius:6px;color:var(--fg);padding:0 9px;height:33px}.custom-row button{border:0;border-radius:6px;background:var(--button);color:var(--buttonText);padding:0 14px}
-footer{text-align:center;color:var(--sub);font-size:9px;letter-spacing:1px;padding:12px 0 4px}button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-@media(max-height:760px){.player{padding:13px 0}.logo{width:45px;height:45px;margin-bottom:8px}.controls{margin-top:10px}.play-btn{width:48px;height:48px}}
+.player{padding:20px 0 16px;text-align:center}.logo{width:58px;height:58px;border:1px solid var(--line);background:var(--panel);border-radius:18px;margin:0 auto 13px;display:grid;place-items:center;color:var(--accent);font-size:24px}.station-name{font-weight:800;font-size:22px;letter-spacing:-.7px}.station-meta{color:var(--accent);font-size:12px;margin-top:5px}.controls{display:flex;justify-content:center;align-items:center;gap:32px;margin-top:15px}.icon-btn{border:0;background:none;color:var(--sub);font-size:23px;width:42px;height:42px}.play-btn{width:56px;height:56px;border:0;border-radius:50%;background:var(--button);color:var(--buttonText);font-size:22px}
+.volume,.timer{border-top:1px solid var(--line);padding:12px 0;margin-bottom:12px}.section-head{display:flex;justify-content:space-between;align-items:center;color:var(--sub);font-size:10px;letter-spacing:1.5px;margin-bottom:9px}.volume-row{display:flex;align-items:center;gap:10px}.volume-row input{flex:1;min-width:0;accent-color:var(--accent)}.volume-value{font-size:11px;color:var(--sub);width:34px;text-align:right}.note{font-size:11px;color:var(--sub);line-height:1.5;margin-top:8px}.note.warn{color:var(--accent)}
+.presets{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.timer-btn{border:1px solid var(--line);background:none;color:var(--fg);border-radius:6px;height:34px;font-size:11px}.timer-btn.active{background:var(--active);border-color:var(--accent);color:var(--accent)}.custom-row{display:flex;gap:7px;margin-top:8px}.custom-row input{min-width:0;flex:1;background:var(--panel);border:1px solid var(--line);border-radius:6px;color:var(--fg);padding:0 9px;height:33px}.custom-row button{border:0;border-radius:6px;background:var(--button);color:var(--buttonText);padding:0 14px}.timer-status{display:flex;justify-content:space-between;align-items:center;color:var(--sub);font-size:11px;margin-top:9px}.timer-time{font-size:16px;font-weight:700;color:var(--fg);font-variant-numeric:tabular-nums}.timer-actions button{background:none;border:0;color:var(--accent);font-size:11px}
+.channels{padding:6px 0 25px}.section-title{font-size:10px;letter-spacing:2px;color:var(--sub);margin:0 0 10px;display:flex;justify-content:space-between}.search{width:100%;height:40px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--fg);padding:0 12px;font-size:13px;margin-bottom:12px}.station-list{display:grid;gap:6px}.station-row{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:10px 9px;min-height:48px}.station-row.selected{background:var(--active);border-color:var(--accent)}.station-pick{flex:1;min-width:0;border:0;background:none;color:var(--fg);text-align:left;padding:0;font-size:13px}.station-sub{display:block;font-size:10px;color:var(--sub);margin-top:3px}.star{width:32px;height:32px;border:0;background:none;color:var(--sub);font-size:19px}.star.on{color:var(--accent)}.group-title{font-size:11px;color:var(--sub);margin:13px 0 7px}.empty{font-size:12px;color:var(--sub);padding:15px 4px}.timer-actions{display:flex;gap:8px}
+footer{text-align:center;color:var(--sub);font-size:9px;letter-spacing:1px;padding:12px 0 4px}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-height:760px){.player{padding:12px 0}.logo{width:45px;height:45px;margin-bottom:8px}.controls{margin-top:9px}.play-btn{width:48px;height:48px}}
 </style>
 </head>
 <body><div class="app">
 <header><div class="brand">RADIO.</div><div class="status"><span class="dot" id="dot"></span><span id="status">READY</span></div></header>
 <section class="player">
- <div class="logo">♫</div><div class="station-name" id="currentName">CBS 표준FM</div><div class="station-meta" id="currentMeta">수도권 · CBS</div>
+ <div class="logo">♫</div><div class="station-name" id="currentName">CBS 표준FM</div><div class="station-meta" id="currentMeta">98.1 MHz · CBS</div>
  <div class="controls"><button class="icon-btn" id="stop" aria-label="정지">■</button><button class="play-btn" id="play" aria-label="재생">▶</button><button class="icon-btn" id="currentStar" aria-label="즐겨찾기">☆</button></div>
 </section>
 <section class="volume">
  <div class="section-head"><span>VOLUME</span><span id="volumeText">100%</span></div>
  <div class="volume-row"><span aria-hidden="true">◖))</span><input id="volume" type="range" min="0" max="100" value="100"><span class="volume-value" id="volumeValue">100%</span></div>
- <div id="volumeNote" class="volume-note">기본 음량 100%</div>
+ <div id="volumeNote" class="note">기본 음량 100%</div>
 </section>
 <section class="timer">
  <div class="section-head"><span>SLEEP TIMER</span><span>FADE OUT · 60 SEC</span></div>
@@ -45,94 +42,49 @@ footer{text-align:center;color:var(--sub);font-size:9px;letter-spacing:1px;paddi
 </section>
 <section class="channels">
  <div class="section-title"><span>FAVORITES</span><span id="favCount">0</span></div><div id="favorites" class="station-list"><div class="empty">별표를 눌러 즐겨찾기를 추가해 줘.</div></div>
- <div class="section-title" style="margin-top:22px"><span>ALL CHANNELS</span><span id="channelCount">불러오는 중</span></div>
+ <div class="section-title" style="margin-top:22px"><span>AVAILABLE STREAMS</span><span id="channelCount">0</span></div>
  <input id="search" class="search" type="search" placeholder="방송국 이름 검색">
- <div class="region-tabs" id="regions"></div>
  <div id="allChannels"></div>
+ <div class="note">고정 HTTPS 스트림 주소를 사용하는 채널만 모았어. 방송사 서버 정책이나 주소 변경에 따라 재생이 중단될 수 있어.</div>
 </section>
-<footer>YOUR PERSONAL RADIO · STATIC GITHUB EDITION</footer>
+<footer>PERSONAL RADIO · STATIC STREAMS</footer>
 <audio id="audio" preload="none" playsinline></audio>
 </div>
 <script>
-const SOURCE_INDEX="https://raw.githubusercontent.com/BSofDeath/radio.bsod.kr/main/index.html";
-const STREAM_BASE="https://radio.bsod.kr/stream/";
-const REGION_NAMES={seoul:"수도권",busan:"부산·울산·경남",daegu:"대구·경북",gwangju:"광주·전남",jeonbuk:"전북",daejeon:"대전·세종·충남",chungbuk:"충북",gangwon:"강원",jeju:"제주"};
-const fallback=[
- {name:"KBS 1라디오",region:"seoul",stn:"kbs",ch:"1radio"},
- {name:"KBS 2라디오",region:"seoul",stn:"kbs",ch:"2radio"},
- {name:"KBS 3라디오",region:"seoul",stn:"kbs",ch:"3radio"},
- {name:"KBS 클래식FM",region:"seoul",stn:"kbs",ch:"1fm"},
- {name:"KBS 쿨FM",region:"seoul",stn:"kbs",ch:"2fm"},
- {name:"KBS 한민족방송",region:"seoul",stn:"kbs",ch:"hanminjok"},
- {name:"MBC 표준FM",region:"seoul",stn:"mbc",ch:"sfm"},
- {name:"MBC FM4U",region:"seoul",stn:"mbc",ch:"fm4u"},
- {name:"MBC mini 올댓뮤직",region:"seoul",stn:"mbc",ch:"chm"},
- {name:"SBS 러브FM",region:"seoul",stn:"sbs",ch:"lovefm"},
- {name:"SBS 파워FM",region:"seoul",stn:"sbs",ch:"powerfm"},
- {name:"SBS 고릴라디오M",region:"seoul",stn:"sbs",ch:"dmb"},
- {name:"EBS FM",region:"seoul",stn:"ebs",ch:"fm"},
- {name:"EBS 반디 외국어 전문",region:"seoul",stn:"ebs",ch:"bandi"},
- {name:"OBS 라디오",region:"seoul",stn:"obs"},
- {name:"iFM 경인방송",region:"seoul",stn:"ifm"},
- {name:"YTN 라디오",region:"seoul",stn:"ytn"},
- {name:"TBS FM",region:"seoul",stn:"tbs",ch:"fm"},
- {name:"TBS eFM",region:"seoul",stn:"tbs",ch:"efm"},
- {name:"TBN 경인교통방송",region:"seoul",stn:"tbn"},
- {name:"CBS 표준FM",region:"seoul",stn:"cbs",ch:"sfm"},
- {name:"CBS 음악FM",region:"seoul",stn:"cbs",ch:"mfm"},
- {name:"CBS JOY4U",region:"seoul",stn:"cbs",ch:"joy4u"},
- {name:"FEBC 서울극동방송",region:"seoul",stn:"febc"},
- {name:"BBS 서울불교방송",region:"seoul",stn:"bbs"},
- {name:"CPBC 가톨릭평화방송",region:"seoul",stn:"cpbc"},
- {name:"WBS 서울원음방송",region:"seoul",stn:"wbs"},
- {name:"국방FM",region:"seoul",stn:"kookbang"},
- {name:"국악방송",region:"seoul",stn:"kugak"},
- {name:"AFN FM Humphreys",region:"seoul",stn:"afn",city:"humphreys"},
- {name:"관악FM",region:"seoul",stn:"community",ch:"gwanakfm"},
- {name:"마포FM",region:"seoul",stn:"community",ch:"mapofm"},
- {name:"성남FM",region:"seoul",stn:"community",ch:"seongnamfm"},
- {name:"서대문FM",region:"seoul",stn:"community",ch:"sdmfm"},
- {name:"수원FM",region:"seoul",stn:"community",ch:"sonefm"},
- {name:"GO구리FM",region:"seoul",stn:"community",ch:"gurifm"},
- {name:"단원FM",region:"seoul",stn:"community",ch:"dwfm"}
-];
+const stations = [{"id": "cbs981", "name": "CBS 표준FM", "group": "CBS", "freq": "98.1 MHz", "url": "https://m-aac.cbs.co.kr/mweb_cbs981/_definst_/cbs981.stream/playlist.m3u8", "kind": "고정 주소"}, {"id": "cbs939", "name": "CBS 음악FM", "group": "CBS", "freq": "93.9 MHz", "url": "https://m-aac.cbs.co.kr/mweb_cbs939/_definst_/cbs939.stream/playlist.m3u8", "kind": "고정 주소"}, {"id": "cbsjoy4u", "name": "CBS JOY4U", "group": "CBS", "freq": "인터넷", "url": "https://m-aac.cbs.co.kr/mweb_cbscmc/_definst_/cbscmc.stream/playlist.m3u8", "kind": "고정 주소"}, {"id": "ebsfm", "name": "EBS FM", "group": "EBS", "freq": "인터넷", "url": "https://ebsonair.ebs.co.kr/fmradiofamilypc/familypc1m/playlist.m3u8", "kind": "고정 주소"}, {"id": "obs", "name": "OBS 라디오", "group": "OBS", "freq": "인터넷", "url": "https://vod3.obs.co.kr:444/live/obsstream1/radio.stream/playlist.m3u8", "kind": "고정 주소"}, {"id": "bbs", "name": "BBS 불교방송", "group": "BBS", "freq": "인터넷", "url": "https://bbslive.clouducs.com/bbsradio-live/livestream/playlist.m3u8", "kind": "고정 주소"}, {"id": "tbsfm", "name": "TBS FM", "group": "TBS", "freq": "95.1 MHz", "url": "https://cdnfm.tbs.seoul.kr/tbs/_definst_/tbs_fm_web_360.smil/playlist.m3u8", "kind": "고정 주소"}, {"id": "tbsefm", "name": "TBS eFM", "group": "TBS", "freq": "인터넷", "url": "https://cdnfm.tbs.seoul.kr/tbs/_definst_/tbs_efm_web_360.smil/playlist.m3u8", "kind": "고정 주소"}, {"id": "dema", "name": "국방FM", "group": "국방FM", "freq": "인터넷", "url": "https://mediaworks.dema.mil.kr/live_edge/audio.sdp/playlist.m3u8", "kind": "고정 주소"}, {"id": "gugak", "name": "국악방송", "group": "국악방송", "freq": "99.1 MHz", "url": "https://mgugaklive.nowcdn.co.kr/gugakradio/gugakradio.stream/playlist.m3u8", "kind": "고정 주소"}, {"id": "ifm", "name": "iFM 경인방송", "group": "iFM", "freq": "90.7 MHz", "url": "https://stream.ifm.kr/live/aod1/playlist.m3u8", "kind": "고정 주소"}];
 const $=id=>document.getElementById(id), audio=$("audio");
-let stations=[...fallback], region="seoul", currentId=localStorage.getItem("radioLastStation")||"cbs981";
+let currentId=localStorage.getItem("radioLastStation")||"cbs981";
 let favorites=JSON.parse(localStorage.getItem("radioFavorites")||"[]");
 let baseVolume=Number(localStorage.getItem("radioVolume")||100)/100;
-let hls=null, timerDeadline=null, timerTick=null, requestNo=0;
+let hls=null, requestNo=0, timerDeadline=null, timerTick=null;
 const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
-function save(){try{localStorage.setItem("radioFavorites",JSON.stringify(favorites));}catch(e){}}
-function key(s){return [s.stn,s.ch||"",s.city||"",s.name].join("|")}
-function queryUrl(s){const p=new URLSearchParams({stn:s.stn});if(s.ch)p.set("ch",s.ch);if(s.city)p.set("city",s.city);return STREAM_BASE+"?"+p.toString()}
 function setStatus(t,live=false){$("status").textContent=t;$("dot").classList.toggle("live",live)}
-function isFav(s){return favorites.includes(s.id||key(s))}
-function toggleFav(s){const id=s.id||key(s);favorites=isFav(s)?favorites.filter(x=>x!==id):[...favorites,id];save();renderFavorites();renderAll();updateCurrent()}
-function updateCurrent(){const s=stations.find(x=>x.id===currentId)||stations.find(x=>key(x)===currentId)||stations[0];if(!s)return;$("currentName").textContent=s.name;$("currentMeta").textContent=(REGION_NAMES[s.region]||"지역")+(s.city?" · "+s.city:"")+" · "+s.stn.toUpperCase();$("currentStar").textContent=isFav(s)?"★":"☆";$("currentStar").classList.toggle("on",isFav(s));}
-function row(s){const active=(s.id||key(s))===currentId;return `<div class="station-row ${active?"selected":""}"><button class="station-pick" data-play="${encodeURIComponent(s.id||key(s))}">${esc(s.name)}<span class="station-sub">${esc(REGION_NAMES[s.region]||"지역")} · ${esc(s.stn.toUpperCase())}</span></button><button class="star ${isFav(s)?"on":""}" data-fav="${encodeURIComponent(s.id||key(s))}" aria-label="즐겨찾기">${isFav(s)?"★":"☆"}</button></div>`}
-function esc(v){return String(v||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function renderFavorites(){const list=stations.filter(isFav);$("favCount").textContent=list.length;if(!list.length){$("favorites").innerHTML='<div class="empty">별표를 눌러 즐겨찾기를 추가해 줘.</div>';return}$("favorites").innerHTML=list.map(row).join("");}
-function renderRegions(){const regs=Object.keys(REGION_NAMES);$("regions").innerHTML=regs.map(r=>`<button data-region="${r}" class="${r===region?"active":""}">${REGION_NAMES[r]}</button>`).join("")}
-function renderAll(){const q=$("search").value.trim().toLowerCase();const list=stations.filter(s=>s.region===region&&(!q||s.name.toLowerCase().includes(q)||s.stn.toLowerCase().includes(q)));$("channelCount").textContent=stations.length+"개";if(!list.length){$("allChannels").innerHTML='<div class="empty">검색 결과가 없어.</div>';return;}const groups={};list.forEach(s=>{const g=s.stn.toUpperCase();(groups[g]??=[]).push(s)});$("allChannels").innerHTML=Object.entries(groups).map(([g,items])=>`<div class="group-title">${g}</div><div class="station-list">${items.map(row).join("")}</div>`).join("");}
-function find(id){return stations.find(s=>(s.id||key(s))===id)}
-function bindRows(){document.addEventListener("click",e=>{const p=e.target.closest("[data-play]"),f=e.target.closest("[data-fav]"),r=e.target.closest("[data-region]");if(p){const s=find(decodeURIComponent(p.dataset.play));if(s)selectStation(s,true)}if(f){const s=find(decodeURIComponent(f.dataset.fav));if(s)toggleFav(s)}if(r){region=r.dataset.region;renderRegions();renderAll()}})}
-function parseRemote(htmlText){const doc=new DOMParser().parseFromString(htmlText,"text/html"),out=[];for(const [rid,rname] of Object.entries(REGION_NAMES)){const box=doc.getElementById(rid);if(!box)continue;box.querySelectorAll('a[href*="changeSource"]').forEach(a=>{const href=a.getAttribute("href")||"",m=href.match(/changeSource\(\{([^}]+)\}\)/);if(!m)return;const obj={};for(const kv of m[1].matchAll(/(stn|ch|city):'([^']+)'/g))obj[kv[1]]=kv[2];if(!obj.stn)return;out.push({name:a.textContent.trim(),region:rid,...obj});});}return out}
-async function loadChannels(){try{const res=await fetch(SOURCE_INDEX,{cache:"no-store"});if(!res.ok)throw Error("index fetch failed");const parsed=parseRemote(await res.text());if(parsed.length>20){stations=parsed;const has=stations.some(s=>s.id===currentId||key(s)===currentId);if(!has)currentId=key(stations.find(s=>s.name.includes("CBS 표준FM"))||stations[0]);}}catch(e){console.warn("외부 채널 목록을 불러오지 못해 기본 목록 사용",e)}updateCurrent();renderRegions();renderFavorites();renderAll()}
-async function loadHls(){if(window.Hls)return window.Hls;await new Promise((resolve,reject)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js";s.onload=resolve;s.onerror=reject;document.head.appendChild(s)});return window.Hls}
-async function selectStation(s,autoplay){currentId=s.id||key(s);localStorage.setItem("radioLastStation",currentId);updateCurrent();renderFavorites();renderAll();requestNo++;const my=requestNo;if(hls){hls.destroy();hls=null}audio.pause();audio.removeAttribute("src");audio.load();setStatus("LOADING");$("play").textContent="▶";if(!autoplay)return;try{const url=queryUrl(s);if(audio.canPlayType("application/vnd.apple.mpegurl")){audio.src=url;audio.load();await audio.play()}else{const Hls=await loadHls();if(my!==requestNo)return;if(!Hls.isSupported())throw Error("HLS 미지원");hls=new Hls({enableWorker:true,lowLatencyMode:false,maxBufferLength:20});hls.loadSource(url);hls.attachMedia(audio);await new Promise((resolve,reject)=>{hls.once(Hls.Events.MANIFEST_PARSED,resolve);hls.once(Hls.Events.ERROR,(_,d)=>{if(d.fatal)reject(Error(d.details))})});if(my!==requestNo)return;await audio.play()}if(my===requestNo){setStatus("ON AIR",true);$("play").textContent="Ⅱ"}}catch(e){console.error(e);if(my===requestNo){setStatus("PLAY ERROR");$("play").textContent="▶";alert("이 채널을 재생하지 못했어. 방송국 스트림 또는 외부 스트림 제공 상태를 확인해 줘.")}}}
-$("play").addEventListener("click",async()=>{if(!audio.paused){audio.pause();$("play").textContent="▶";setStatus("PAUSED")}else if(audio.src){try{await audio.play();$("play").textContent="Ⅱ";setStatus("ON AIR",true)}catch(e){const s=stations.find(x=>(x.id||key(x))===currentId);if(s)selectStation(s,true)}}else{const s=stations.find(x=>(x.id||key(x))===currentId);if(s)selectStation(s,true)}});
-$("stop").addEventListener("click",()=>{requestNo++;audio.pause();audio.removeAttribute("src");audio.load();if(hls){hls.destroy();hls=null}$("play").textContent="▶";setStatus("STOPPED")});
-$("currentStar").addEventListener("click",()=>{const s=stations.find(x=>(x.id||key(x))===currentId);if(s)toggleFav(s)});
-audio.addEventListener("playing",()=>{setStatus("ON AIR",true);$("play").textContent="Ⅱ"});audio.addEventListener("pause",()=>{if(audio.src&&$("status").textContent==="ON AIR"){setStatus("PAUSED");$("play").textContent="▶"}});
-function applyVolume(){if(!isIOS)audio.volume=Math.max(0,Math.min(1,baseVolume*fadeFactor()));}
-function fadeFactor(){if(timerDeadline===null)return 1;const left=Math.max(0,timerDeadline-Date.now());return Math.min(1,left/60000)}
+function current(){return stations.find(s=>s.id===currentId)||stations[0]}
+function isFav(s){return favorites.includes(s.id)}
+function persist(){localStorage.setItem("radioFavorites",JSON.stringify(favorites))}
+function updateCurrent(){const s=current();$("currentName").textContent=s.name;$("currentMeta").textContent=s.freq+" · "+s.group+(s.expires?" · 주소 만료 예정":"");$("currentStar").textContent=isFav(s)?"★":"☆";$("currentStar").classList.toggle("on",isFav(s))}
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function row(s){return `<div class="station-row ${s.id===currentId?"selected":""}"><button class="station-pick" data-play="${s.id}">${esc(s.name)}<span class="station-sub">${esc(s.freq)} · ${esc(s.kind)}</span></button><button class="star ${isFav(s)?"on":""}" data-fav="${s.id}" aria-label="즐겨찾기">${isFav(s)?"★":"☆"}</button></div>`}
+function renderFavorites(){const a=stations.filter(isFav);$("favCount").textContent=a.length;$("favorites").innerHTML=a.length?a.map(row).join(""):'<div class="empty">별표를 눌러 즐겨찾기를 추가해 줘.</div>'}
+function renderAll(){const q=$("search").value.trim().toLowerCase();const a=stations.filter(s=>(s.name+" "+s.group).toLowerCase().includes(q));$("channelCount").textContent=a.length+"개";const groups={};a.forEach(s=>(groups[s.group]??=[]).push(s));$("allChannels").innerHTML=Object.entries(groups).map(([g,list])=>`<div class="group-title">${esc(g)}</div><div class="station-list">${list.map(row).join("")}</div>`).join("")||'<div class="empty">검색 결과가 없어.</div>'}
+function render(){updateCurrent();renderFavorites();renderAll()}
+function destroy(){if(hls){hls.destroy();hls=null}audio.pause();audio.removeAttribute("src");audio.load()}
+async function loadHls(){if(window.Hls)return window.Hls;await new Promise((ok,no)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/hls.js@1.5.17/dist/hls.min.js";s.onload=ok;s.onerror=no;document.head.appendChild(s)});return window.Hls}
+async function playStation(s){currentId=s.id;localStorage.setItem("radioLastStation",currentId);render();requestNo++;const n=requestNo;destroy();setStatus("LOADING");$("play").textContent="▶";try{if(audio.canPlayType("application/vnd.apple.mpegurl")){audio.src=s.url;audio.load();await audio.play()}else{const Hls=await loadHls();if(n!==requestNo)return;if(!Hls.isSupported())throw Error("HLS 미지원");hls=new Hls({enableWorker:true,lowLatencyMode:false,maxBufferLength:20});hls.loadSource(s.url);hls.attachMedia(audio);await new Promise((resolve,reject)=>{hls.once(Hls.Events.MANIFEST_PARSED,resolve);hls.on(Hls.Events.ERROR,(_,d)=>{if(d.fatal)reject(Error(d.details))})});if(n!==requestNo)return;await audio.play()}if(n===requestNo){setStatus("ON AIR",true);$("play").textContent="Ⅱ"}}catch(e){console.error("Stream error",s.id,e);if(n===requestNo){setStatus("PLAY ERROR");$("play").textContent="▶";alert(s.name+" 재생에 실패했어. 스트림 서버의 접근 제한, CORS 또는 주소 변경일 수 있어.")}}}
+document.addEventListener("click",e=>{const p=e.target.closest("[data-play]"),f=e.target.closest("[data-fav]");if(p){const s=stations.find(x=>x.id===p.dataset.play);if(s)playStation(s)}if(f){const s=stations.find(x=>x.id===f.dataset.fav);if(s){favorites=isFav(s)?favorites.filter(x=>x!==s.id):[...favorites,s.id];persist();render()}}});
+$("currentStar").addEventListener("click",()=>{const s=current();favorites=isFav(s)?favorites.filter(x=>x!==s.id):[...favorites,s.id];persist();render()});
+$("play").addEventListener("click",async()=>{if(!audio.paused){audio.pause();$("play").textContent="▶";setStatus("PAUSED")}else if(audio.src){try{await audio.play();$("play").textContent="Ⅱ";setStatus("ON AIR",true)}catch(e){playStation(current())}}else playStation(current())});
+$("stop").addEventListener("click",()=>{requestNo++;destroy();$("play").textContent="▶";setStatus("STOPPED")});
+audio.addEventListener("playing",()=>{setStatus("ON AIR",true);$("play").textContent="Ⅱ"});audio.addEventListener("waiting",()=>{if(!audio.paused)setStatus("BUFFERING")});audio.addEventListener("error",()=>{if(audio.src&&!audio.paused)setStatus("PLAY ERROR")});
+function fade(){if(timerDeadline===null)return 1;return Math.max(0,Math.min(1,(timerDeadline-Date.now())/60000))}
+function applyVolume(){if(!isIOS)audio.volume=Math.max(0,Math.min(1,baseVolume*fade()))}
 $("volume").value=Math.round(baseVolume*100);$("volumeValue").textContent=$("volume").value+"%";$("volumeText").textContent=$("volume").value+"%";audio.volume=baseVolume;
 $("volume").addEventListener("input",()=>{baseVolume=Number($("volume").value)/100;$("volumeValue").textContent=$("volume").value+"%";$("volumeText").textContent=$("volume").value+"%";localStorage.setItem("radioVolume",$("volume").value);applyVolume()});
-if(isIOS){$("volume").disabled=true;$("volumeNote").textContent="iPhone/iPad에서는 Safari가 웹페이지의 음량 조절을 제한해. 기기 측면 음량 버튼 또는 제어 센터에서 조절해 줘.";$("volumeNote").classList.add("warn")}else{$("volumeNote").textContent="이 기기에서는 슬라이더로 재생 음량을 조절할 수 있어."}
-function startTimer(mins){if(!Number.isFinite(mins)||mins<1||mins>720){alert("1~720분 사이로 설정해 줘.");return}clearInterval(timerTick);timerDeadline=Date.now()+mins*60000;document.querySelectorAll(".timer-btn").forEach(b=>b.classList.toggle("active",Number(b.dataset.min)===mins));$("timerLabel").textContent="취침 타이머 작동 중";$("cancel").hidden=$("extend").hidden=false;updateTimer();timerTick=setInterval(updateTimer,250)}
-function updateTimer(){if(timerDeadline===null)return;const left=Math.max(0,timerDeadline-Date.now()),sec=Math.ceil(left/1000);$("timerTime").textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");applyVolume();if(left<=0){clearInterval(timerTick);timerTick=null;timerDeadline=null;audio.pause();audio.removeAttribute("src");audio.load();if(hls){hls.destroy();hls=null}$("timerLabel").textContent="재생 종료";$("timerTime").textContent="00:00";$("cancel").hidden=$("extend").hidden=true;document.querySelectorAll(".timer-btn").forEach(b=>b.classList.remove("active"));setStatus("TIMER ENDED")}}
+if(isIOS){$("volume").disabled=true;$("volumeNote").textContent="iPhone/iPad Safari는 웹페이지 음량 조절을 지원하지 않아. 기기 측면 음량 버튼 또는 제어 센터에서 조절해 줘.";$("volumeNote").classList.add("warn")}else $("volumeNote").textContent="슬라이더로 재생 음량을 조절할 수 있어.";
+function startTimer(mins){if(!Number.isFinite(mins)||mins<1||mins>720){alert("1~720분 사이로 설정해 줘.");return}clearInterval(timerTick);timerDeadline=Date.now()+mins*60000;document.querySelectorAll(".timer-btn").forEach(b=>b.classList.toggle("active",Number(b.dataset.min)===mins));$("timerLabel").textContent="취침 타이머 작동 중";$("cancel").hidden=$("extend").hidden=false;tick();timerTick=setInterval(tick,250)}
+function tick(){if(timerDeadline===null)return;const left=Math.max(0,timerDeadline-Date.now()),sec=Math.ceil(left/1000);$("timerTime").textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");applyVolume();if(left<=0){clearInterval(timerTick);timerTick=null;timerDeadline=null;requestNo++;destroy();$("timerLabel").textContent="재생 종료";$("timerTime").textContent="00:00";$("cancel").hidden=$("extend").hidden=true;document.querySelectorAll(".timer-btn").forEach(b=>b.classList.remove("active"));setStatus("TIMER ENDED")}}
 function cancelTimer(){clearInterval(timerTick);timerTick=null;timerDeadline=null;applyVolume();$("timerLabel").textContent="타이머 설정 안 됨";$("timerTime").textContent="--:--";$("cancel").hidden=$("extend").hidden=true;document.querySelectorAll(".timer-btn").forEach(b=>b.classList.remove("active"))}
-document.querySelectorAll(".timer-btn").forEach(b=>b.addEventListener("click",()=>startTimer(Number(b.dataset.min))));$("customSet").addEventListener("click",()=>startTimer(Number($("custom").value)));$("cancel").addEventListener("click",cancelTimer);$("extend").addEventListener("click",()=>{if(timerDeadline!==null)startTimer(Math.ceil((timerDeadline-Date.now())/60000)+15)});
-$("search").addEventListener("input",renderAll);bindRows();loadChannels();
-</script>
-</body></html>
+document.querySelectorAll(".timer-btn").forEach(b=>b.addEventListener("click",()=>startTimer(Number(b.dataset.min))));$("customSet").addEventListener("click",()=>startTimer(Number($("custom").value)));$("cancel").addEventListener("click",cancelTimer);$("extend").addEventListener("click",()=>{if(timerDeadline!==null)startTimer(Math.ceil((timerDeadline-Date.now())/60000)+15)});$("search").addEventListener("input",renderAll);
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&timerDeadline!==null)tick()});
+render();
+</script></body></html>
